@@ -1,0 +1,242 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "dd653f61-fa07-47f4-ada6-ea86cad58cf5",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "from sklearn.svm import SVC\n",
+    "from sklearn.naive_bayes import GaussianNB\n",
+    "from sklearn.ensemble import RandomForestClassifier\n",
+    "from sklearn.linear_model import Perceptron\n",
+    "from sklearn import metrics\n",
+    "\n",
+    "train_feature_vector = [[1, 2], [3, 4], [1, 0], [3, 2]]\n",
+    "train_labels = [1, 1, 0, 0]\n",
+    "\n",
+    "test_feature_vector = [[1, 3], [3, 5], [3, 1]]\n",
+    "test_labels = [1, 1, 0]\n",
+    "\n",
+    "# Initialize and train the LinearSVC classifier\n",
+    "svm_classifier = SVC(kernel = 'linear')\n",
+    "\n",
+    "svm_classifier.fit(train_feature_vector, train_labels)\n",
+    "\n",
+    "# Use the trained model to make predictions on the test data\n",
+    "predicted_labels = svm_classifier.predict(test_feature_vector)\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "daf37fec-ef66-4f60-82d1-1925105503d3",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Predicted Labels: [1 1 0]\n",
+      "Gaussian Naive Bayes Predicted Labels: [1 1 0]\n",
+      "Random Forest Predicted Labels: [1 1 0]\n",
+      "Perceptron Predicted Labels: [1 1 0]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Gaussian Naive Bayes\n",
+    "nb_classifier = GaussianNB()\n",
+    "nb_classifier.fit(train_feature_vector, train_labels)\n",
+    "predicted_labels_nb = nb_classifier.predict(test_feature_vector)\n",
+    "\n",
+    "# Random Forest\n",
+    "rf_classifier = RandomForestClassifier()\n",
+    "rf_classifier.fit(train_feature_vector, train_labels)\n",
+    "predicted_labels_rf = rf_classifier.predict(test_feature_vector)\n",
+    "\n",
+    "# Perceptron\n",
+    "perceptron_classifier = Perceptron()\n",
+    "perceptron_classifier.fit(train_feature_vector, train_labels)\n",
+    "predicted_labels_perceptron = perceptron_classifier.predict(test_feature_vector)\n",
+    "\n",
+    "print(\"Predicted Labels:\", predicted_labels)\n",
+    "print(\"Gaussian Naive Bayes Predicted Labels:\", predicted_labels_nb)\n",
+    "print(\"Random Forest Predicted Labels:\", predicted_labels_rf)\n",
+    "print(\"Perceptron Predicted Labels:\", predicted_labels_perceptron)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "b5600964-8131-4bd4-919f-0a1c929c749e",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "LinearSVC - Accuracy: 1.0 Precision: 1.0 Recall: 1.0 F1-score: 1.0\n",
+      "Gaussian Naive Bayes - Accuracy: 1.0 Precision: 1.0 Recall: 1.0 F1-score: 1.0\n",
+      "Random Forest - Accuracy: 1.0 Precision: 1.0 Recall: 1.0 F1-score: 1.0\n",
+      "Perceptron - Accuracy: 1.0 Precision: 1.0 Recall: 1.0 F1-score: 1.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "accuracy_svm = metrics.accuracy_score(test_labels, predicted_labels)\n",
+    "precision_svm = metrics.precision_score(test_labels, predicted_labels)\n",
+    "recall_svm = metrics.recall_score(test_labels, predicted_labels)\n",
+    "f1_score_svm = metrics.f1_score(test_labels, predicted_labels)\n",
+    "\n",
+    "accuracy_nb = metrics.accuracy_score(test_labels, predicted_labels_nb)\n",
+    "precision_nb = metrics.precision_score(test_labels, predicted_labels_nb)\n",
+    "recall_nb = metrics.recall_score(test_labels, predicted_labels_nb)\n",
+    "f1_score_nb = metrics.f1_score(test_labels, predicted_labels_nb)\n",
+    "\n",
+    "accuracy_rf = metrics.accuracy_score(test_labels, predicted_labels_rf)\n",
+    "precision_rf = metrics.precision_score(test_labels, predicted_labels_rf)\n",
+    "recall_rf = metrics.recall_score(test_labels, predicted_labels_rf)\n",
+    "f1_score_rf = metrics.f1_score(test_labels, predicted_labels_rf)\n",
+    "\n",
+    "accuracy_perceptron = metrics.accuracy_score(test_labels, predicted_labels_perceptron)\n",
+    "precision_perceptron = metrics.precision_score(test_labels, predicted_labels_perceptron)\n",
+    "recall_perceptron = metrics.recall_score(test_labels, predicted_labels_perceptron)\n",
+    "f1_score_perceptron = metrics.f1_score(test_labels, predicted_labels_perceptron)\n",
+    "\n",
+    "print(\"LinearSVC - Accuracy:\", accuracy_svm, \"Precision:\", precision_svm, \"Recall:\", recall_svm, \"F1-score:\", f1_score_svm)\n",
+    "print(\"Gaussian Naive Bayes - Accuracy:\", accuracy_nb, \"Precision:\", precision_nb, \"Recall:\", recall_nb, \"F1-score:\", f1_score_nb)\n",
+    "print(\"Random Forest - Accuracy:\", accuracy_rf, \"Precision:\", precision_rf, \"Recall:\", recall_rf, \"F1-score:\", f1_score_rf)\n",
+    "print(\"Perceptron - Accuracy:\", accuracy_perceptron, \"Precision:\", precision_perceptron, \"Recall:\", recall_perceptron, \"F1-score:\", f1_score_perceptron)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "6ecfca26-bcf7-4f63-8c3e-9aa9ccda8286",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Confusion Matrix - LinearSVC:\n",
+      "[[1 0]\n",
+      " [0 2]]\n",
+      "False Positives: 0\n",
+      "False Negatives: 0\n",
+      "\n",
+      "Confusion Matrix - Gaussian Naive Bayes:\n",
+      "[[1 0]\n",
+      " [0 2]]\n",
+      "False Positives: 0\n",
+      "False Negatives: 0\n",
+      "\n",
+      "Confusion Matrix - Random Forest:\n",
+      "[[1 0]\n",
+      " [0 2]]\n",
+      "False Positives: 0\n",
+      "False Negatives: 0\n",
+      "\n",
+      "Confusion Matrix - Perceptron:\n",
+      "[[1 0]\n",
+      " [0 2]]\n",
+      "False Positives: 0\n",
+      "False Negatives: 0\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Confusion matrix for LinearSVC\n",
+    "cm_svm = metrics.confusion_matrix(test_labels, predicted_labels)\n",
+    "fp_svm = cm_svm[0, 1]\n",
+    "fn_svm = cm_svm[1, 0]\n",
+    "\n",
+    "# Confusion matrix for Gaussian Naive Bayes\n",
+    "cm_nb = metrics.confusion_matrix(test_labels, predicted_labels_nb)\n",
+    "fp_nb = cm_nb[0, 1]\n",
+    "fn_nb = cm_nb[1, 0]\n",
+    "\n",
+    "# Confusion matrix for Random Forest\n",
+    "cm_rf = metrics.confusion_matrix(test_labels, predicted_labels_rf)\n",
+    "fp_rf = cm_rf[0, 1]\n",
+    "fn_rf = cm_rf[1, 0]\n",
+    "\n",
+    "# Confusion matrix for Perceptron\n",
+    "cm_perceptron = metrics.confusion_matrix(test_labels, predicted_labels_perceptron)\n",
+    "fp_perceptron = cm_perceptron[0, 1]\n",
+    "fn_perceptron = cm_perceptron[1, 0]\n",
+    "\n",
+    "print(\"Confusion Matrix - LinearSVC:\")\n",
+    "print(cm_svm)\n",
+    "print(\"False Positives:\", fp_svm)\n",
+    "print(\"False Negatives:\", fn_svm)\n",
+    "print()\n",
+    "\n",
+    "print(\"Confusion Matrix - Gaussian Naive Bayes:\")\n",
+    "print(cm_nb)\n",
+    "print(\"False Positives:\", fp_nb)\n",
+    "print(\"False Negatives:\", fn_nb)\n",
+    "print()\n",
+    "\n",
+    "print(\"Confusion Matrix - Random Forest:\")\n",
+    "print(cm_rf)\n",
+    "print(\"False Positives:\", fp_rf)\n",
+    "print(\"False Negatives:\", fn_rf)\n",
+    "print()\n",
+    "\n",
+    "print(\"Confusion Matrix - Perceptron:\")\n",
+    "print(cm_perceptron)\n",
+    "print(\"False Positives:\", fp_perceptron)\n",
+    "print(\"False Negatives:\", fn_perceptron)\n",
+    "print()\n",
+    "\n",
+    "\n",
+    "\n",
+    "\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "685f5ad6-5573-4308-9cbb-0a70b7af0558",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
